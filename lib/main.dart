@@ -1,4 +1,6 @@
 //actual
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -36,19 +38,22 @@ class contenedor_ventanas extends StatelessWidget {
               buildCard(
                   context,
                   'https://www.shutterstock.com/image-illustration/view-waterfall-forest-600nw-2327645439.jpg',
-                  'Ventana 1',
+                  'corazón serrano y agua marina con el lobo y la sociedad privada',
+                  '02/08/2024',
                   'screen1'),
               const SizedBox(width: 5),
               buildCard(
                   context,
                   'https://www.shutterstock.com/shutterstock/photos/2198245029/display_1500/stock-photo-autumn-nature-landscape-lake-bridge-in-fall-forest-path-way-in-gold-woods-romantic-view-image-2198245029.jpg',
-                  'Ventana 2',
+                  'Ventana 2Ventana 2Ventana 2',
+                  '02/08/2024',
                   'screen2'),
               const SizedBox(width: 5),
               buildCard(
                   context,
                   'https://st5.depositphotos.com/64145070/64693/i/450/depositphotos_646930840-stock-photo-sunset-ocean-beach-beautiful-seascape.jpg',
                   'Ventana 3',
+                  '02/08/2024',
                   'screen3'),
             ],
           ),
@@ -58,8 +63,8 @@ class contenedor_ventanas extends StatelessWidget {
   }
 }
 
-Widget buildCard(
-    BuildContext context, String imagenCard, String texto, String ruta) {
+Widget buildCard(BuildContext context, String imagenCard, String grupo,
+    String fecha, String ruta) {
   return GestureDetector(
     onTap: () {
       Navigator.pushNamed(context, ruta);
@@ -81,22 +86,50 @@ Widget buildCard(
                   child: Container(
                 color: Colors.black.withOpacity(0.6), // Capa negra con opacidad
               )),
-              Center(
-                child: Text(
-                  texto,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        capitalizacion(grupo),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                            fecha,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
+                          )
+                    ],
                   ),
-                  textAlign: TextAlign.center,
                 ),
-              ),
+              )
             ],
           ),
         )),
   );
 }
+
+String capitalizacion(String text) {
+  if (text.isEmpty) {
+    return text;
+  }
+  return text.split(' ').map((word) {
+    if (word.isEmpty) return word;
+    return word[0].toUpperCase() + word.substring(1).toLowerCase();
+  }).join(' ');
+}
+
 
 class card1 extends StatefulWidget {
   const card1({super.key});
